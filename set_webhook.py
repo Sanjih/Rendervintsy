@@ -2,7 +2,7 @@ import os
 import asyncio
 from telegram.ext import Application
 
-TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+TOKEN = os.getenv("8092994458:AAGlzk0nJf3Yb4PsHQXh79Fr9r0oiHL0QZo")
 WEBHOOK_URL = os.getenv("https://telegram-bot-nk3n.onrender.com/webhook")
 
 async def main():
