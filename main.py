@@ -5,7 +5,7 @@ from telegram.ext import Application, CommandHandler, ContextTypes
 import asyncio 
 
 # Tena asaina mampiasa Environment Variable ho an'ny token
-TOKEN = os.getenv("TELEGRAM_BOT_TOKEN") # Esory ny default value raha efa napetraka ao amin'ny Render
+TOKEN = os.getenv("8092994458:AAGlzk0nJf3Yb4PsHQXh79Fr9r0oiHL0QZo") # Esory ny default value raha efa napetraka ao amin'ny Render
 
 app = Flask(__name__)
 
