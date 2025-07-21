@@ -51,13 +51,4 @@ async def webhook():
         return "ok", 200
     abort(403)
 
-if __name__ == "__main__":
-    # Raha mbola misy RuntimeWarning: coroutine 'Application.initialize' was never awaited,
-    # dia mety mila ampiana eto ny asyncio.run(application.initialize())
-    # na asyncio.run(application.start()) arakaraka ny filany.
-    # Nefa ny fomba tsara indrindra ho an'ny Render dia ny miantoka fa ny set_webhook.py
-    # no manao ny fanombohana voalohany.
 
-    port = int(os.environ.get("PORT", 5000))
-    print(f"Flask app running on port {port}")
-    app.run(host="0.0.0.0", port=port)
