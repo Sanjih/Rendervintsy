@@ -5,7 +5,7 @@ from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes
 
 # Fenoy amin'ny Token tena izy avy amin'ny BotFather
-TOKEN = "8092994458:AAHI1Ud1fh2E06VaXy6826Db0KH4KAstn6E" 
+TOKEN = "8092994458:AAGlzk0nJf3Yb4PsHQXh79Fr9r0oiHL0QZo" 
 
 # Tsy ilaina eto intsony ny WEBHOOK_URL satria ny set_webhook.py no mikarakara azy
 # WEBHOOK_URL = os.getenv("WEBHOOK_URL", "https://telegram-bot-nk3n.onrender.com")
