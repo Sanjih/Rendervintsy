@@ -2,8 +2,8 @@ import os
 import asyncio
 from telegram.ext import Application
 
-TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "8092994458:AAHI1Ud1fh2E06VaXy6826Db0KH4KAstn6E") 
-WEBHOOK_URL = os.getenv("WEBHOOK_URL", "https://telegram-bot-nk3n.onrender.com/webhook") # Tokony ho hita ao amin'ny Render io URL io
+TOKEN = os.getenv("8092994458:AAHIlUdlfh2E06VaXy6826Db0KH4KAstn6E") 
+WEBHOOK_URL = os.getenv("https://telegram-bot-nk3n.onrender.com/webhook")
 
 async def main():
     application = (
@@ -12,8 +12,9 @@ async def main():
         .build()
     )
 
-    # initialize-na eto koa, satria Build Command ity
+    # Initialize sy start eto koa
     await application.initialize() 
+    await application.start() # Ampio ity, satria miaraka amin'ny initialize matetika
 
     print(f"Setting webhook to: {WEBHOOK_URL}")
     try:
@@ -21,8 +22,10 @@ async def main():
         print("Webhook set successfully!")
     except Exception as e:
         print(f"Error setting webhook: {e}")
-        # Mety ilaina ny mamoaka exception eto raha diso ny fametrahana webhook
-        # raise e 
+        # Raha misy olana, jereo ny info momba ny webhook
+        webhook_info = await application.bot.get_webhook_info()
+        print(f"Current Webhook Info: {webhook_info}")
+        raise # Avereno ny exception mba tsy hahomby ny build
 
 if __name__ == "__main__":
     asyncio.run(main())
