@@ -2,8 +2,10 @@ import os
 import asyncio
 from telegram.ext import Application
 
-TOKEN = os.getenv("8092994458:AAGlzk0nJf3Yb4PsHQXh79Fr9r0oiHL0QZo")
-WEBHOOK_URL = os.getenv("https://telegram-bot-nk3n.onrender.com/webhook")
+# Use the environment variable name (key), not the token itself.
+TOKEN = os.getenv("TELEGRAM_BOT_TOKEN") 
+# Use the environment variable name (key) for WEBHOOK_URL.
+WEBHOOK_URL = os.getenv("WEBHOOK_URL") 
 
 async def main():
     application = (
@@ -12,20 +14,19 @@ async def main():
         .build()
     )
 
-    # Initialize sy start eto koa
-    await application.initialize() 
-    await application.start() # Ampio ity, satria miaraka amin'ny initialize matetika
+    # Initialize and start here as well
+    await application.initialize() # 
+    await application.start() # Add this, as it often goes with initialize 
 
-    print(f"Setting webhook to: {WEBHOOK_URL}")
+    print(f"Setting webhook to: {WEBHOOK_URL}") # 
     try:
-        await application.bot.set_webhook(url=WEBHOOK_URL)
-        print("Webhook set successfully!")
-    except Exception as e:
-        print(f"Error setting webhook: {e}")
-        # Raha misy olana, jereo ny info momba ny webhook
-        webhook_info = await application.bot.get_webhook_info()
-        print(f"Current Webhook Info: {webhook_info}")
-        raise # Avereno ny exception mba tsy hahomby ny build
+        await application.bot.set_webhook(url=WEBHOOK_URL) # 
+        print("Webhook set successfully!") # [cite: 6]
+    except Exception as e: # [cite: 6]
+        print(f"Error setting webhook: {e}") # [cite: 6]
+        webhook_info = await application.bot.get_webhook_info() # [cite: 6]
+        print(f"Current Webhook Info: {webhook_info}") # [cite: 6]
+        raise # Re-raise the exception so the build fails if webhook setup fails [cite: 6]
 
-if __name__ == "__main__":
-    asyncio.run(main())
+if __name__ == "__main__": # [cite: 6]
+    asyncio.run(main()) # [cite: 6]
