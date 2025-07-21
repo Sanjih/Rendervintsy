@@ -1,19 +1,17 @@
-
 import os
 from flask import Flask, request, abort
 from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes
+import asyncio 
 
-# Fenoy amin'ny Token tena izy avy amin'ny BotFather
-TOKEN = "8092994458:AAGlzk0nJf3Yb4PsHQXh79Fr9r0oiHL0QZo" 
-
-# Tsy ilaina eto intsony ny WEBHOOK_URL satria ny set_webhook.py no mikarakara azy
-# WEBHOOK_URL = os.getenv("WEBHOOK_URL", "https://telegram-bot-nk3n.onrender.com")
+# Use the environment variable name (key), not the token itself.
+# Make sure to set TELEGRAM_BOT_TOKEN in Render's environment variables.
+TOKEN = os.getenv("TELEGRAM_BOT_TOKEN") 
 
 app = Flask(__name__)
 
-# Mamorona ny Application object eo am-piandohana
-application = Application.builder().token(TOKEN).build()
+# Create the Application object.
+application = Application.builder().token(TOKEN).build() # [cite: 2]
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("👋 Salama! Bot Telegram no nandray anao.")
@@ -25,19 +23,25 @@ def home():
     return "Bot is running!"
 
 @app.route("/webhook", methods=["POST"])
-async def webhook():
-    if request.method == "POST":
-        json_data = request.get_json(force=True)
-        update = Update.de_json(json_data, application.bot)
+async def webhook(): # 
+    # Start the Application if it's not already running (works for v21.x)
+    if not application.started: # 
+        print("Application not started, initializing and starting now...") # 
+        await application.initialize() # 
+        await application.start() # Start the application 
+        
+    if request.method == "POST": # 
+        json_data = request.get_json(force=True) # 
+        print("Received a webhook request!") # 
+        print(f"Received JSON: {json_data}") # [cite: 4]
+        update = Update.de_json(json_data, application.bot) # [cite: 4]
+        
+        await application.process_update(update) # [cite: 4]
+        
+        return "ok", 200 # [cite: 4]
+    abort(403) # [cite: 4]
 
-        # Mampiasa process_update_async izay async
-        await application.process_update(update) 
-
-        return "ok", 200
-    abort(403)
-
-if __name__ == "__main__":
-    # Ny Flask server ihany no atao run eto
-    port = int(os.environ.get("PORT", 5000))
-    print(f"Flask app running on port {port}")
-    app.run(host="0.0.0.0", port=port)
+if __name__ == "__main__": # [cite: 4]
+    port = int(os.environ.get("PORT", 5000)) # [cite: 4]
+    print(f"Flask app running on port {port}") # [cite: 4]
+    app.run(host="0.0.0.0", port=port) # [cite: 4]
